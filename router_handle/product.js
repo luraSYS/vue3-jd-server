@@ -143,7 +143,7 @@ exports.getDevice = (req, res) => {
 
 // 获取商品详情信息
 exports.getDetail = (req, res) => {
-  const sqlStr = `select proid,proname,detail,price,showpic,showpic2,showpic3 from product where proid=?`
+  const sqlStr = `select proname,detail,price,showpic,showpic2,showpic3 from product where proid=?`
   db.query(sqlStr, req.query.proid, (err, result) => {
     if (err) return res.sendMessage(err)
     else {
