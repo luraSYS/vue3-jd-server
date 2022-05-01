@@ -3,8 +3,8 @@ module.exports = {
   secretKey: '*^*$alren*^*',
   survivalTime: '10h',
   // 数据库相关配置
-  host: '127.0.0.1',
-  user: 'hb_test',
-  password: '111',
-  database: 'shoppingplatform',
+  host: 'db4free.net',
+  user: 'sixiliya',
+  password: 'NnJ_i2wCkP.C3$e',
+  database: 'jd_demo_db',
 }
