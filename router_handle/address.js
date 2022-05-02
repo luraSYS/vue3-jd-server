@@ -49,6 +49,43 @@ exports.addAddress = (req, res) => {
     }
   })
 }
+exports.addAddress2 = (req, res) => {
+  const data = req.body
+  const user = [data.userid, data.name, data.phone, data.address, data.code]
+  const checkSql = `select status from receipt where userid=? and name=? and phone=? and address=?`
+  db.query(checkSql, user, (err, result) => {
+    // return console.log(req.body);
+    if (err) return res.sendMessage(err)
+    else {
+      if (result.length > 0) {
+        if (result[0].status == 0) {
+          // 已有数据信息status=0
+          const sqlStr2 = `update receipt set status=1 where userid=? and name=? and phone=? and address=?`
+          db.query(sqlStr2, user, (i_err, i_result) => {
+            if (i_err) return res.sendMessage(i_err)
+            else {
+              if (i_result.affectedRows == 1)
+                return res.sendMessage('添加收货地址成功', 0)
+              return res.sendMessage('添加收货地址失败')
+            }
+          })
+        }
+        // 有重复信息status=1
+        else return res.sendMessage('已有该地址信息')
+      } else {
+        const sqlStr = `insert into receipt (address,detail,code,province,city,county,phone,name,area,def,userid) values ?`
+        db.query(sqlStr, [[Object.values(req.body)]], (err, result) => {
+          if (err) return res.sendMessage(err)
+          else {
+            if (result.affectedRows == 1)
+              return res.sendMessage('添加收货地址成功', 0)
+            res.sendMessage('添加收货地址失败')
+          }
+        })
+      }
+    }
+  })
+}
 // 删除收货地址
 exports.RemoveAddress = (req, res) => {
   const sqlStr = `update receipt set status=0 where receiptid=?`

@@ -7,6 +7,7 @@ router.post('/getaddress', router_handle.getAddress)
 
 // 添加收货地址
 router.post('/add', router_handle.addAddress)
+router.post('/add2', router_handle.addAddress2)
 
 // 删除收货地址
 router.post('/remove', router_handle.RemoveAddress)
