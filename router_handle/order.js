@@ -15,7 +15,7 @@ exports.getOrderId = (req, res) => {
 // 获取订单详情表信息
 exports.getOrder = (req, res) => {
   const data = req.body
-  const sqlStr = `select p.proname,p.price,p.showpic,p.detail,oi.quantity,oi.orderitemid,o.pay,o.time
+  const sqlStr = `select p.proname,p.price,p.showpic,p.detail,oi.quantity,oi.orderitemid,o.time,o.receiptid
   from orderitem oi left join orders o on oi.orderitemid=o.orderitemid 
   left join product p on p.proid=oi.proid 
   where oi.userid=? and oi.orderitemid=?`
