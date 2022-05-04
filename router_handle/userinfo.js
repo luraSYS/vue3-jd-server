@@ -22,6 +22,18 @@ exports.userLogout = (req, res) => {
   })
 }
 
+// 修改用户账户金额
+exports.userModAccount = (req, res) => {
+  const sqlStr = `update user set account=? where userid=?`
+  db.query(sqlStr, [req.body.account, req.body.userid], (err, result) => {
+    if (err) return res.sendMessage(err)
+    else {
+      if (result.affectedRows == 1)
+        return res.sendMessage('修改用户账户成功', 0)
+      return res.sendMessage('修改用户账户失败')
+    }
+  })
+}
 // 修改用户头像
 exports.userModProfile = (req, res) => {
   const sqlStr = `update user set userpic=? where userid = ?`
