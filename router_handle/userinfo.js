@@ -36,13 +36,26 @@ exports.userModAccount = (req, res) => {
 }
 // 修改用户头像
 exports.userModProfile = (req, res) => {
-  const sqlStr = `update user set userpic=? where userid = ?`
-  db.query(sqlStr, [req.query.userpic, req.user.userid], (err, result) => {
+  const sqlStr = `update user set userpic=? where ?`
+  db.query(sqlStr, [req.body.userpic, req.query], (err, result) => {
     if (err) return res.sendMessage(err)
     else {
       if (result.affectedRows == 1)
         return res.sendMessage('更改用户头像成功', 0)
       return res.sendMessage('更换用户头像失败')
+    }
+  })
+}
+// 修改用户名和电话
+exports.userModInfo = (req, res) => {
+  req.body.password = bcrypt.hashSync(req.body.password, 10)
+  const sqlStr = `update user set ? where ?`
+  db.query(sqlStr, [req.body, req.query], (err, result) => {
+    if (err) return res.sendMessage(err)
+    else {
+      if (result.affectedRows == 1)
+        return res.sendMessage('修改用户信息成功', 0)
+      return res.sendMessage('修改用户信息失败')
     }
   })
 }
@@ -66,6 +79,23 @@ exports.userModTel = (req, res) => {
       if (result.affectedRows == 1)
         return res.sendMessage('更改绑定手机成功', 0)
       return res.sendMessage('更改绑定手机号失败')
+    }
+  })
+}
+// 检查用户密码是否正确
+exports.checkUserPsd = (req, res) => {
+  const user = req.body
+  const sqlStr = `select password from user where userid=?`
+  db.query(sqlStr, user.userid, (err, result) => {
+    if (err) return res.sendMessage(err)
+    else {
+      if (result.length == 0 || result[0].status == 0) {
+        return res.sendMessage('用户不存在')
+      }
+      // 先进行解密之后再进行验证密码是否正确
+      const compare = bcrypt.compareSync(user.password, result[0].password)
+      if (!compare) return res.sendMessage('原密码错误')
+      return res.sendMessage('密码正确', 0)
     }
   })
 }

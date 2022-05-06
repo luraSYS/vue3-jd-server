@@ -8,12 +8,14 @@ router.get('/logout', router_handle.userLogout)
 
 // 修改用户相关信息
 // 1.头像
-router.get('/mod/profile', router_handle.userModProfile)
+router.post('/mod/profile', router_handle.userModProfile)
 // 2.用户名
 router.get('/mod/name', router_handle.userModName)
 // 3.电话号码
 router.get('/mod/tel', router_handle.userModTel)
-// 4.密码(修改与重置)
+router.post('/mod/info', router_handle.userModInfo)
+// 4.密码(检查+修改与重置)
+router.post('/checkpsd', router_handle.checkUserPsd)
 router.post('/mod/psd', router_handle.userModPassword)
 router.post('/reset/psd', router_handle.userResetPassword)
 // 5.账户
