@@ -48,97 +48,77 @@ exports.getPromotion = (req, res) => {
 
 // 获取数码产品类商品
 exports.getDigital = (req, res) => {
-  // 第一次请求数据得返回总数来确定页数
-  if (req.query.page == 1) {
-    const sqlTot = `select count(*) from product
-    where cateid=? and status=1 order by proid desc`
-    db.query(sqlTot, 1, (err, result) => {
-      if (err) {
-        return res.sendMessage(err)
-      } else {
-        const count = result[0]['count(*)']
-        getpage(req, res, 1, count)
-      }
-    })
-  } else {
-    getpage(req, res, 1)
-  }
+  const sqlStr = `select proid,proname,detail,showpic,price from product 
+  where cateid=? and status=1 order by proid desc 
+  limit 8 offset ${(req.query.page - 1) * 8}`
+  db.query(sqlStr, 1, (err, result) => {
+    if (err) {
+      return res.sendMessage(err)
+    }
+    if (result.length > 0) {
+      res.sendMessage('获取数码产品成功', 0, result)
+    }
+  })
 }
 
 // 获取精品图书类商品
 exports.getBooks = (req, res) => {
-  // 第一次请求数据得返回总数来确定页数
-  if (req.query.page == 1) {
-    const sqlTot = `select count(*) from product
-    where cateid=? and status=1 order by proid desc`
-    db.query(sqlTot, 2, (err, result) => {
-      if (err) {
-        return res.sendMessage(err)
-      } else {
-        const count = result[0]['count(*)']
-        getpage(req, res, 2, count)
-      }
-    })
-  } else {
-    getpage(req, res, 2)
-  }
+  const sqlStr = `select proid,proname,detail,showpic,price from product 
+  where cateid=? and status=1 order by proid desc 
+  limit 8 offset ${(req.query.page - 1) * 8}`
+  db.query(sqlStr, 2, (err, result) => {
+    if (err) {
+      return res.sendMessage(err)
+    }
+    if (result.length > 0) {
+      res.sendMessage('获取精品图书成功', 0, result)
+    }
+  })
 }
 
 // 获取时尚衣服类商品
 exports.getCloths = (req, res) => {
-  // 第一次请求数据得返回总数来确定页数
-  if (req.query.page == 1) {
-    const sqlTot = `select count(*) from product
-    where cateid=? and status=1 order by proid desc`
-    db.query(sqlTot, 3, (err, result) => {
-      if (err) {
-        return res.sendMessage(err)
-      } else {
-        const count = result[0]['count(*)']
-        getpage(req, res, 3, count)
-      }
-    })
-  } else {
-    getpage(req, res, 3)
-  }
+  const sqlStr = `select proid,proname,detail,showpic,price from product 
+  where cateid=? and status=1 order by proid desc 
+  limit 8 offset ${(req.query.page - 1) * 8}`
+  db.query(sqlStr, 3, (err, result) => {
+    if (err) {
+      return res.sendMessage(err)
+    }
+    if (result.length > 0) {
+      res.sendMessage('获取时尚衣服成功', 0, result)
+    }
+  })
 }
 
 // 获取美食甜品类商品
 exports.getFood = (req, res) => {
-  // 第一次请求数据得返回总数来确定页数
-  if (req.query.page == 1) {
-    const sqlTot = `select count(*) from product
-    where cateid=? and status=1 order by proid desc`
-    db.query(sqlTot, 4, (err, result) => {
-      if (err) {
-        return res.sendMessage(err)
-      } else {
-        const count = result[0]['count(*)']
-        getpage(req, res, 4, count)
-      }
-    })
-  } else {
-    getpage(req, res, 4)
-  }
+  const sqlStr = `select proid,proname,detail,showpic,price from product 
+  where cateid=? and status=1 order by proid desc 
+  limit 8 offset ${(req.query.page - 1) * 8}`
+  db.query(sqlStr, 4, (err, result) => {
+    if (err) {
+      return res.sendMessage(err)
+    }
+    if (result.length > 0) {
+      res.sendMessage('获取美食甜品成功', 0, result)
+    }
+  })
 }
 
 // 获取家用电器类商品
 exports.getDevice = (req, res) => {
-  // 第一次请求数据得返回总数来确定页数
-  if (req.query.page == 1) {
-    const sqlTot = `select count(*) from product
-    where cateid=? and status=1 order by proid desc`
-    db.query(sqlTot, 5, (err, result) => {
-      if (err) {
-        return res.sendMessage(err)
-      } else {
-        const count = result[0]['count(*)']
-        getpage(req, res, 5, count)
-      }
-    })
-  } else {
-    getpage(req, res, 5)
-  }
+  const sqlStr = `select proid,proname,detail,showpic,price from product 
+  where cateid=? and status=1 order by proid desc 
+  limit 8 offset ${(req.query.page - 1) * 8}`
+  db.query(sqlStr, 5, (err, result) => {
+    if (err) {
+      return res.sendMessage(err)
+    }
+    if (result.length > 0) {
+      res.sendMessage('获取家用电器成功', 0, result)
+    }
+  })
 }
 
 // 获取商品详情信息
